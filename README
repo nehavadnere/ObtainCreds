@@ -1,0 +1,33 @@
+HOMEWORK ASSIGNMENT FOR CSE545: SW SECURITY
+
+TASK: Problem 0. obtaincreds
+A TCP service obtaincreds is running at obtaincreds.cse545.rev.fish:13337. It receives a target IP address from the user, and if the user is authenticated, it will happily send a flag via UDP to port 13337 of the target IP.
+
+Obtaincreds employs THE BEST AUTHENTICATION METHOD IN THE WORLD: Source-IP-based authentication, which means it authenticates its users based on their source IP addresses. If a user's source IP address is trusted, obtaincreds will send out the flag to the specified destination. Otherwise, it will send an error message back to the untrusted user (via UDP, too).
+
+The following is quoted from the famous book IP-based Authentication is The Future: "Why is IP-based authentication the best? First of all, IP protocols are designed with security measures, not using them is a crime. Nothing is as strong as those security measures coming with IP protocols. Second, forging TCP connections is no longer possible in the modern world, so we can always use IP addresses to uniquely identify and recognize our users. Last but not least, it's very easy to use: Users do not have to remember their long and tedious passwords any more. As a result, this service is extremely user-friendly -- it only takes a one-liner input string, which is the target IP."
+
+The only trusted IP is 10.2.4.10. Your task is to break or bypass this source-IP-based authentication scheme and steal the flag.
+
+To keep the internet a secure place, obtaincreds.cse545.rev.fish is pointing to a private IP that is only accessible through VPN. You will receive an OpenVPN configuration file via email. You'll need to install OpenVPN and use it to connect to the VPN before talking to the obtaincreds service.
+
+Please submit a zip file obtaincreds.zip with three files inside: A script that attacks the service and obtains the flag, a txt file flag.txt with the stolen flag inside, and a txt file readme.txt describing your thought process or your solution to this problem.
+
+GIVEN: OPENVPN CONFIGURATION FILE
+vpn.ovpn
+
+
+----------------------------------------------------------------------
+
+*** INSTALLATION OF OPENVPN ***
+
+sudo ./script_setup_openvpn.sh
+cp vpn.ovpn /etc/openvpn/vpn_homework.ovpn
+
+*** CONNECT TO OPENVPN SERVER ***
+sudo openvpn /etc/openvpn/vpn_homework.ovpn
+
+Once it is connected, open another terminal and try to access the service:
+nehav@nehav:~/Desktop/SWSEC/Homework3$ nc -v obtaincreds.cse545.rev.fish 13337
+Connection to obtaincreds.cse545.rev.fish 13337 port [tcp/*] succeeded!
+
